@@ -1,8 +1,11 @@
 import React from 'react'
+import Logout from './Logout';
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <div>
+      <Logout />
+    </div>
   )
 }
 

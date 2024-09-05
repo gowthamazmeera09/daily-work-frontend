@@ -13,6 +13,7 @@ import Sigup from './pages/Sigup';
 import Addwork from './pages/Addwork';
 import Totalworks from './pages/Totalworks';
 import Profile from './pages/Profile';
+import Logout from './pages/Logout';
 
 
 const router = createBrowserRouter([
@@ -38,7 +39,13 @@ const router = createBrowserRouter([
       },
       {
         path:"/Profile",
-        element:<Profile />
+        element:<Profile />,
+        children:[
+          {
+            path:"/Profile/Logout",
+            element:<Logout />
+          }
+        ]
       }
     ]
   }

@@ -13,8 +13,8 @@ function Addwork() {
       const logintoken = localStorage.getItem('loginToken');
       const userId = localStorage.getItem('userId');
       if (!logintoken || !userId) {
+         alert('User not authenticated');
         console.log(logintoken);
-        alert('User not authenticated');
       }
       
       const formData = new FormData();
@@ -23,7 +23,7 @@ function Addwork() {
       formData.append('experience',experience);
       formData.append('location',location);
 
-      const response = await fetch(`${API_URL}work/addwork`, {
+      const response = await fetch(`${API_URL}work/addwork/${userId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${logintoken}`
