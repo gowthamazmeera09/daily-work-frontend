@@ -6,6 +6,7 @@ function Addwork() {
     const [workname,setWorkName] = useState("");
     const [experience,setExperience] = useState("");
     const [location,setLocation] = useState("");
+    const [images,setImages] = useState("");
 
     const handlesubmit = async(e)=>{
         e.preventDefault();
@@ -26,13 +27,17 @@ function Addwork() {
                     'Token':`${Token}`,
                     'Content-Type': 'application/json' 
                 },
-                body: JSON.stringify({workname,experience,location})
+                body: JSON.stringify({workname,experience,location,images})
             });
             const data = await  responce.json();
 
         if(responce.ok){
           alert("work added successfully");
-          console.log(data)
+          console.log(data);
+          setWorkName("");
+          setExperience("");
+          setLocation("");
+          setImages("");
         }
 
             
@@ -57,8 +62,12 @@ function Addwork() {
                     <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">location</label>
                     <input type="text" name='location' value={location} onChange={(e) => setLocation(e.target.value)} class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="newYork" required />
                 </div>
+                <div class="mb-5">
+                    <label for="images" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">images</label>
+                    <input type="file" name='images' value={images} onChange={(e) => setImages(e.target.value)} class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="software" required />
+                </div>
 
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sigin</button>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">AddWork</button>
                 
                
             </form>

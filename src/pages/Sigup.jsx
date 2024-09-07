@@ -8,39 +8,37 @@ function Sigup() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [phonenumber,setPhoneNumber] = useState("");
-    const [profilePicture, setProfilePicture] = useState(null);
-    const [profilePicturePreview, setProfilePicturePreview] = useState("");
+    const [profilePicture,setProfilePicture] = useState(null)
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false)
     const navigate = useNavigate();
    
 
 
-    const handleProfilePictureChange = (e) => {
-        const file = e.target.files[0];
+    const handleProfilePicturesubmit = (e) => {
+        const file = e.target.files[0];  // get the file from the input
         setProfilePicture(file);
-
-        // Preview the image
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setProfilePicturePreview(reader.result);
-        };
-        if (file) {
-            reader.readAsDataURL(file);
-        }
     };
 
     const handlesubmit = async(e)=>{
         e.preventDefault();
         try {
             setLoading(true);
+            // const formData = new FormData();
+            // formData.append('username',username);
+            // formData.append('email',email);
+            // formData.append('password',password);
+            // formData.append('phonenumber',phonenumber);
+            // formData.append('profilePicture',file);
+
+            
             const responce = await fetch(`${API_URL}user/register`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify({username,email,password,phonenumber})
-            })
+                body:JSON.stringify({username,email,password,phonenumber,profilePicture})
+            });
             const data = await responce.json();
             if(responce.ok){
                 alert("registation successfull");
@@ -96,13 +94,9 @@ function Sigup() {
 
                 <div className="mb-5">
                     <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
-                    <input type="file" accept="image/*" onChange={handleProfilePictureChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    <input type="file" name='profilePicture' value={profilePicture} onChange={(e)=>setProfilePicture(e.target.value)}  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
                 </div>
-                {profilePicturePreview && (
-                    <div className="mb-5">
-                        <img src={profilePicturePreview} alt="Profile Preview" className="h-32 w-32 object-cover rounded-full" />
-                    </div>
-                )}
+                
                 
                 
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{ loading? 'Loading...':'Sigup' }</button>
