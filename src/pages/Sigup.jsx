@@ -8,39 +8,32 @@ function Sigup() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [phonenumber,setPhoneNumber] = useState("");
-    const [profilePicture,setProfilePicture] = useState(null)
+    const [file,setFile] = useState(null)
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false)
     const navigate = useNavigate();
    
 
 
-    const handleProfilePicturesubmit = (e) => {
-        const file = e.target.files[0];  // get the file from the input
-        setProfilePicture(file);
-    };
+    
 
     const handlesubmit = async(e)=>{
         e.preventDefault();
         try {
             setLoading(true);
-            // const formData = new FormData();
-            // formData.append('username',username);
-            // formData.append('email',email);
-            // formData.append('password',password);
-            // formData.append('phonenumber',phonenumber);
-            // formData.append('profilePicture',file);
+            const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('phonenumber', phonenumber);
+        formData.append('profilepicture', file);  // Adding the file to formData
 
-            
-            const responce = await fetch(`${API_URL}user/register`,{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({username,email,password,phonenumber,profilePicture})
-            });
-            const data = await responce.json();
-            if(responce.ok){
+        const response = await fetch(`${API_URL}user/register`, {
+            method: 'POST',
+            body: formData // No need for 'Content-Type' header when using FormData
+        });
+            const data = await response.json();
+            if(response.ok){
                 alert("registation successfull");
                 console.log(data);
                 navigate('/Sigin')
@@ -94,7 +87,7 @@ function Sigup() {
 
                 <div className="mb-5">
                     <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
-                    <input type="file" name='profilePicture' value={profilePicture} onChange={(e)=>setProfilePicture(e.target.value)}  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    <input type="file" onClick={(e)=>setFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
                 </div>
                 
                 
