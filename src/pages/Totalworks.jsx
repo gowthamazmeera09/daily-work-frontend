@@ -1,46 +1,76 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../data/Apiurl';
 
 function Totalworks() {
   const [userData, setUserData] = useState(null); // Store user data
 
+  // Function to get all data related to the user
+  const getAlldata = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        alert("User not found");
+        return;
+      }
+
+      const response = await axios.get(`${API_URL}user/single-user/${userId}`);
+      setUserData(response.data.user); // Set the user data
+    } catch (error) {
+      console.error(error);
+      alert("Failed to get the user data");
+    }
+  };
+
+  // Function to handle the delete operation
+  const handleDelete = async (workId) => {
+    try {
+      await axios.delete(`${API_URL}work/deletework/${workId}`);
+      alert("Work deleted successfully");
+      getAlldata(); // Refresh the data after deletion
+    } catch (error) {
+      console.error(error);
+      alert("Error deleting the work");
+    }
+  };
+
+  // Fetch the data when the component mounts
   useEffect(() => {
-    // Fetch the user data
-    axios.get("https://daily-work-backend.onrender.com/user/single-user/66dec7e406a4e867c1128e91")
-      .then((res) => {
-        setUserData(res.data.user); // Set the user data
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    getAlldata();
   }, []);
 
   return (
     <div>
-      {userData ? (
-        <div>
-          <h1>{userData.username}</h1> {/* Display the username */}
-          <ul>
+      {userData && userData.addwork.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+            <th className="border border-gray-300 px-4 py-2 text-left">Work Name</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Experience</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Location</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
             {userData.addwork.map((work) => (
-              <li key={work._id}>
-                <h3>{work.workname}</h3>
-                <p>Experience: {work.experience}</p>
-                <p>Location: {work.location}</p>
-                {/* Display the images */}
-                {work.images.map((image, index) => (
-                  <img 
-                    key={index} 
-                    src={image.replace("C:\\fakepath\\", "/uploads/")} // Adjust the image path as needed
-                    alt={work.workname} 
-                    width="100"
-                  />
-                ))}
-              </li>
+              <tr key={work._id}>
+                <td className="border border-gray-300 px-4 py-2">{work.workname}</td>
+                <td className="border border-gray-300 px-4 py-2">{work.experience}</td>
+                <td className="border border-gray-300 px-4 py-2">{work.location}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button 
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                    onClick={() => handleDelete(work._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))}
-          </ul>
-        </div>
+          </tbody>
+        </table>
       ) : (
-        <p>No user data found.</p>
+        <p>No works were added</p>
       )}
     </div>
   );
