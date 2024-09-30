@@ -8,7 +8,7 @@ function Sigup() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [phonenumber,setPhoneNumber] = useState("");
-    const [file,setFile] = useState(null)
+    const [selectedFile, setSelectedFile] = useState(null);
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false)
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Sigup() {
         formData.append('email', email);
         formData.append('password', password);
         formData.append('phonenumber', phonenumber);
-        formData.append('profilepicture', file);  // Adding the file to formData
+        formData.append('image', selectedFile); // Adding the file to formData
 
         const response = await fetch(`${API_URL}user/register`, {
             method: 'POST',
@@ -87,7 +87,7 @@ function Sigup() {
 
                 <div className="mb-5">
                     <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
-                    <input type="file" onClick={(e)=>setFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    <input type="file" onClick={(e)=>setSelectedFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
                 </div>
                 
                 

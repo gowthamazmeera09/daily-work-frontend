@@ -1,3 +1,4 @@
+// Totalworks.js
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { API_URL } from '../data/Apiurl';
@@ -16,6 +17,7 @@ function Totalworks() {
 
       const response = await axios.get(`${API_URL}user/single-user/${userId}`);
       setUserData(response.data.user); // Set the user data
+      console.log(response.data.user)
     } catch (error) {
       console.error(error);
       alert("Failed to get the user data");
@@ -42,12 +44,13 @@ function Totalworks() {
   return (
     <div>
       {userData && userData.addwork.length > 0 ? (
-        <table>
+        <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-            <th className="border border-gray-300 px-4 py-2 text-left">Work Name</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Work Name</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Experience</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Location</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Images</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Delete</th>
             </tr>
           </thead>
@@ -57,6 +60,13 @@ function Totalworks() {
                 <td className="border border-gray-300 px-4 py-2">{work.workname}</td>
                 <td className="border border-gray-300 px-4 py-2">{work.experience}</td>
                 <td className="border border-gray-300 px-4 py-2">{work.location}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {work.imageUrl ? (
+                    <img src={work.imageUrl} width="100px" alt="Work Image" /> 
+                  ) : (
+                    <p>No image available</p>
+                  )}
+                </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button 
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"

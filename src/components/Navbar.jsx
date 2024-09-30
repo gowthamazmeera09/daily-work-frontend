@@ -38,7 +38,7 @@ function Navbar() {
 
             {profilePicture ? (
                             <Link to="/Profile">
-                            <img src={profilePicture} alt="storegpic" className="h-10 w-10 object-cover rounded-full" />
+                            <img src={profilePicture} className="h-10 w-10 object-cover rounded-full" />
                           </Link>
                         ) : (
                           <span>
