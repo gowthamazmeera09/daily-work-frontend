@@ -27,7 +27,9 @@ function Sigin() {
                 alert("Login successfull");
                 localStorage.setItem('loginToken',data.token);
                 localStorage.setItem('userId',data.userId);
-                localStorage.setItem('profilePicture', data.profilepicture); 
+                if (data.profilePicture) {
+                    localStorage.setItem('profilePicture', data.profilePicture);
+                } 
                 console.log(data);
                 navigate('/Addwork');
                 window.location.reload();

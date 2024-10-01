@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom';
 
 
 function Navbar() {
-  const [profilePicture, setProfilePicture] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false)
 
 
-  useEffect(() => {
-    setLoading(true)
-    
-    // Get the profile picture from localStorage
-    const storedProfilePicture = localStorage.getItem('profilePicture');
-    if (storedProfilePicture) {
-      setProfilePicture(storedProfilePicture);
-    }
-    setError(false)
+    useEffect(() => {
+      setLoading(true);
+
+      // Get the profile picture from localStorage
+      const storedProfilePicture = localStorage.getItem('profilePicture');
+      if (storedProfilePicture) {
+          setAvatar(storedProfilePicture);
+      }
+      setLoading(false);
   }, []);
 
   
@@ -36,16 +36,18 @@ function Navbar() {
             <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">(+91)6303497101</a>
             <Link to="Sigin" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">
 
-            {profilePicture ? (
-                            <Link to="/Profile">
-                            <img src={profilePicture} className="h-10 w-10 object-cover rounded-full" />
-                          </Link>
-                        ) : (
-                          <span>
-                            <Link to="Sigup" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Sigup</Link>/
-                            <Link to="Sigin" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Sigin</Link>
-                          </span>
-                        )}
+            <div className="text-sm text-blue-600 dark:text-blue-500 hover:underline">
+                            {avatar ? (
+                                <Link to="/Profile">
+                                    <img src={avatar} alt="Profile" className="h-10 w-10 object-cover rounded-full" />
+                                </Link>
+                            ) : (
+                                <span>
+                                    <Link to="/Sigup" className="text-sm text-blue-600 dark:text-blue-500 hover:underline">Signup</Link> /
+                                    <Link to="/Sigin" className="text-sm text-blue-600 dark:text-blue-500 hover:underline">Login</Link>
+                                </span>
+                            )}
+                        </div>
             </Link>
           </div>
         </div>

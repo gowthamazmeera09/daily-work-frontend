@@ -26,7 +26,9 @@ function Sigup() {
         formData.append('email', email);
         formData.append('password', password);
         formData.append('phonenumber', phonenumber);
-        formData.append('image', selectedFile); // Adding the file to formData
+        if (selectedFile) {
+            formData.append('profilePicture', selectedFile); // Use 'profilePicture' as the field name
+        }
 
         const response = await fetch(`${API_URL}user/register`, {
             method: 'POST',
@@ -36,6 +38,9 @@ function Sigup() {
             if(response.ok){
                 alert("registation successfull");
                 console.log(data);
+                if (data.user.profilePicture) {
+                    localStorage.setItem('profilePicture', `${API_URL}${data.user.profilePicture}`);
+                }
                 navigate('/Sigin')
             }
             else if(email){
@@ -87,7 +92,7 @@ function Sigup() {
 
                 <div className="mb-5">
                     <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
-                    <input type="file" onClick={(e)=>setSelectedFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    <input type="file" name="profilePicture" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} onClick={(e)=>setSelectedFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
                 </div>
                 
                 
