@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { API_URL } from '../data/Apiurl';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
 
 
 function Sigup() {
@@ -10,7 +12,8 @@ function Sigup() {
     const [phonenumber,setPhoneNumber] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [error,setError] = useState(null);
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
    
 
@@ -40,6 +43,11 @@ function Sigup() {
                 console.log(data);
                 if (data.user.profilePicture) {
                     localStorage.setItem('profilePicture', `${API_URL}${data.user.profilePicture}`);
+                    dispatch(login({
+                        userId: data.userId,
+                        profilePicture: data.user.profilePicture,
+                        loginToken: data.token
+                    }));
                 }
                 navigate('/Sigin')
             }

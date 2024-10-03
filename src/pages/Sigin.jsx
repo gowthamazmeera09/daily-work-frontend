@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { API_URL } from '../data/Apiurl';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 function Sigin() {
@@ -8,6 +10,7 @@ function Sigin() {
     const [password,setPassword] = useState("");
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false)
+    const dispatch = useDispatch();
     const navigate = useNavigate("");
 
 
@@ -29,6 +32,11 @@ function Sigin() {
                 localStorage.setItem('userId',data.userId);
                 if (data.profilePicture) {
                     localStorage.setItem('profilePicture', data.profilePicture);
+                    dispatch(login({
+                        userId: data.userId,
+                        profilePicture: data.profilePicture,
+                        loginToken: data.token
+                    }));
                 } 
                 console.log(data);
                 navigate('/Addwork');

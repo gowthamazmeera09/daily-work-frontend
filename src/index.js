@@ -14,6 +14,8 @@ import Addwork from './pages/Addwork';
 import Totalworks from './pages/Totalworks';
 import Profile from './pages/Profile';
 import Logout from './pages/Logout';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 
 const router = createBrowserRouter([
@@ -54,9 +56,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-  <RouterProvider router={router}>
+  <Provider store={store}>
+    <RouterProvider router={router}>
     <App />
   </RouterProvider>
+  </Provider>
   
 );
 
