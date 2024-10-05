@@ -48,10 +48,7 @@ function Addwork() {
                 setLocation("");
                 setSelectedFile(null); // Clear the selected file
             }
-            else if(!Token.ok){
-                alert("secession has expired login again");
-                navigate('/Sigin')
-            } else {
+            else {
                 alert("Error: " + data.message);
             }
 
