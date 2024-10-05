@@ -69,18 +69,7 @@ function Navbar() {
 
 
 
-      {/* <div className='bg-slate-200 flex justify-between items-center'>
-        <div className='font-bold p-4'>
-          <h5>gowtham</h5>
-        </div>
-        <div className=''>
-          <ul className='flex gap-4 mx-9'>
-            <Link to="Home"><li>Home</li></Link> 
-            <Link to="About"><li>About</li></Link> 
-            <Link to="Sigin"><li>Sigin</li></Link> 
-          </ul>
-        </div>
-      </div> */}
+      
     </div>
   )
 }

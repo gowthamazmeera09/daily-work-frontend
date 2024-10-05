@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { API_URL } from '../data/Apiurl';
+import { useNavigate } from 'react-router-dom';
 
 function Addwork() {
     const [workname, setWorkName] = useState("");
     const [experience, setExperience] = useState("");
     const [location, setLocation] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const navigate = useNavigate();
 
     const handlesubmit = async (e) => {
         e.preventDefault();
@@ -15,8 +17,11 @@ function Addwork() {
 
             if (!Token || !userid) {
                 alert("User not authenticated");
+                navigate('/Sigin')
                 return;
             }
+
+            
 
             // Create FormData to handle file upload
             const formData = new FormData();
@@ -42,6 +47,10 @@ function Addwork() {
                 setExperience("");
                 setLocation("");
                 setSelectedFile(null); // Clear the selected file
+            }
+            else if(!Token.ok){
+                alert("secession has expired login again");
+                navigate('/Sigin')
             } else {
                 alert("Error: " + data.message);
             }

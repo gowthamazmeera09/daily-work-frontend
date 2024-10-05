@@ -2,11 +2,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { API_URL } from '../data/Apiurl';
+import { useNavigate } from 'react-router-dom';
 
 function Totalworks() {
   const [userData, setUserData] = useState(null); // Store user data
   const [imageUploadWorkId, setImageUploadWorkId] = useState(null); // Track which work is adding images
   const [selectedFiles, setSelectedFiles] = useState(null); // Track selected files for upload
+  const navigate = useNavigate();
 
   // Function to get all data related to the user
   const getAlldata = async () => {
@@ -14,6 +16,7 @@ function Totalworks() {
       const userId = localStorage.getItem('userId');
       if (!userId) {
         alert("User not found");
+        navigate('/Sigin')
         return;
       }
 
@@ -24,7 +27,7 @@ function Totalworks() {
         },
       });
       setUserData(response.data.user); // Set the user data
-      console.log(response.data.user)
+      console.log(response.data.user);
     } catch (error) {
       console.error(error);
       alert("Failed to get the user data");
