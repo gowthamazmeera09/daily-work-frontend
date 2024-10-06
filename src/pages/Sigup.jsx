@@ -33,7 +33,7 @@ function Sigup() {
             formData.append('profilePicture', selectedFile); // Use 'profilePicture' as the field name
         }
 
-        const response = await fetch(`${API_URL}user/register`, {
+        const response = await fetch(`${API_URL}user/register`,{
             method: 'POST',
             body: formData // No need for 'Content-Type' header when using FormData
         });
