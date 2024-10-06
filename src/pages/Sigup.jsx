@@ -43,11 +43,6 @@ function Sigup() {
                 console.log(data);
                 if (data.user.profilePicture) {
                     localStorage.setItem('profilePicture', `${API_URL}${data.user.profilePicture}`);
-                    dispatch(login({
-                        userId: data.userId,
-                        profilePicture: data.user.profilePicture,
-                        loginToken: data.token
-                    }));
                 }
                 navigate('/Sigin')
             }
@@ -66,7 +61,7 @@ function Sigup() {
               setError(false);
 
         } catch (error) {
-            console.log(error);
+            console.error(error);
             alert('registation faled');
             setLoading(false);
             setError(true);
