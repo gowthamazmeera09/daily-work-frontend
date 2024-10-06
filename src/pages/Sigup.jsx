@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { API_URL } from '../data/Apiurl';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/userSlice';
+// import { useDispatch } from 'react-redux';
+// import { login } from '../redux/userSlice';
 
 
 function Sigup() {
@@ -13,7 +13,6 @@ function Sigup() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
    
 
@@ -96,7 +95,7 @@ function Sigup() {
 
                 <div className="mb-5">
                     <label htmlFor="profilePicture" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
-                    <input type="file" name="profilePicture" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} onClick={(e)=>setSelectedFile(e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    <input type="file" name="profilePicture" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])}  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
                 </div>
                 
                 
